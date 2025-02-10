@@ -1,0 +1,161 @@
+
+
+Inicio proyecto:
+
+    01-bases
+
+    (Cualquier de los dos)
+    npm create vite@latest bases    → npm run dev
+
+    npx create-react-app bases --template typescript    →  yarn start (SALE ERROR POR contractor artifactory)
+
+
+GreenSock para animaciones
+
+    npm install gsap
+
+
+useRef() → Para capturar un elemento HTML, una mejor alternativa a usar un className
+           o un Id. Se usó dentro de un useEffect para darle animación a un <h2> en CounterEffect.tsx
+
+
+
+useLayoutEffect() → Cuando nos queremos asegurar de que nuestros objetos HTML ya están construidos
+
+
+
+Action Creators:
+    - funciones que sirven para retornar un action y evitar errores productos de cambios en los actions originales
+    - estos actions creators son llamados en el dispatch()
+    - en resumen, son funciones que se encargan de llamar a la accion
+
+    - lo util que veo en esto es que si en lugar de reset quiero llamarle resetear habrían más lugares en el proyecto donde
+      debería cambiar ese nombre. pero con actioncreators eso se reduce. Y con el uso de un map con las actions posibles se reduciría
+      aún más.
+
+
+
+
+**************************************************************
+
+Inicio proyecto:
+
+     npm create vite@latest react-app
+     npm install
+     npm run dev
+
+Estamos en 02-react-app
+
+Sistema de rutas react-router-dom v6:
+    * La versión 5 es muy diferente y actualmente ya hay v7 (05-02-2025)
+
+    npm install react-router-dom@6
+
+
+Lazy Load & Suspense:
+
+    - para cargar componentes cuando sea necesario o bajo demanda
+    - los componentes son cargados dentro de main.chunk.js ... se puede ver en network del navegador
+    - se pueden cargar los componentes por módulos o simplemente por componentes individuales.
+    - el index.ts "archivo de barril" puede hacer conflicto con el export default, mejor lo borro y ya
+      total solo se usan las importaciones en el Router.ts
+    
+
+
+**************************************************************
+
+Compound Component Pattern
+
+    /02-components-patterns
+
+    ShoppingPage & ProductCard
+
+    - este patron es como un select con varios options
+    - Se comenta a 01-lazyload desde el App.tsx para dejar la aplicación con el Home, Users, About
+
+    - children se define como ReactElement | ReactElement[]
+
+    - Se hizo la lógica de tal manera que soporte ambas implementaciones:
+        (queda a discreción de cada uno la manera en que se va a trabajar)
+        
+        <ProductCard product={product}>
+            <ProductCard.Image />
+            <ProductCard.Title title="Hola Mundo" />
+            <ProductCard.Buttons  />
+        </ProductCard>
+
+        <ProductCard product={product}>
+            <ProductImage />
+            <ProductTitle />
+            <ProductButtons  />
+        </ProductCard>
+
+    - Implica el uso de useContext para compartir props entre Padre(HOC high order Component) e Hijos.
+
+    - Ver los cambios que se hicieron en el barril index.ts para tener las dos formas.
+
+**************************************************************
+
+Extensible Style Pattern
+
+    /02-components-patterns
+
+    - El problema principal es que el <ProductCard> no recibe styles, ni con className, ni con style y lo mismo
+      pasa con los elementos del {children}
+
+    - Se puede hacer con dos técnicas(hay que configurar para que reconozca):
+        (ambos se pueden combinar)
+        - usar className: Se creó un nuevo custom-styles.css y se usó en ShoppingPage.tsx
+        - usar style: Se usa con React.CSSProperties
+
+
+**************************************************************
+
+Control Props
+
+    /02-components-patterns
+
+    - Este patrón generalmente se usa en formularios tradicionales:
+            <input
+                value={  algún valor de solo lectura }
+                onChange={ alguna función que cambia el valor }
+            />
+
+    - Sirve para controlar el estado interno de nuestros componentes.
+
+
+    - La nomenclatura <{ [key: string]: ProductInCart }> significa que son varios keys de tipo string
+      y que contienen un objeto ProductInCart. Es raro pero funciona.
+
+        const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({
+          '1': { ...product1, count: 10},
+          '2': { ...product2, count: 2}
+        });
+
+
+
+
+**************************************************************
+
+
+
+
+**************************************************************
+
+
+
+
+
+- Hooks:
+    - useState
+    - useEffect
+    - useReducer
+    - useContext
+    -
+
+
+
+- Component Patterns
+    - Compound Component Pattern: tener un componente padre y definir dentro los hijos.
+    - Extensible Style: Para que el componente se adapte a estilos personalizados.
+    - Control Props
