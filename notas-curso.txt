@@ -132,7 +132,7 @@ Control Props
           '2': { ...product2, count: 2}
         });
 
-
+    - Todo valor de useRef necesita llamarse con el .current
 
 
 **************************************************************

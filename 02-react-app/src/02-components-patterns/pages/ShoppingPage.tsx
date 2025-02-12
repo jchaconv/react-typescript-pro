@@ -1,99 +1,79 @@
-import { useState } from "react";
 import ProductCard, { ProductButtons, ProductImage, ProductTitle } from "../components"
-import { Product } from "../interfaces/interfaces";
 import '../styles/custom-styles.css';
+import { useShoppingCart } from "../hooks/useShoppingCart";
+import { products } from "../data/products";
 
-
-const product1 = {
-  id: '1',
-  title: 'Coffee Mug - Card',
-  img: './coffee-mug.png'
-}
-
-const product2 = {
-  id: '2',
-  title: 'Coffee Mug - Meme',
-  img: './coffee-mug2.png'
-}
-
-const products: Product[] = [product1, product2];
 
 export const ShoppingPage = () => {
 
-    const [shoppingCart, setShoppingCart] = useState({
-        '1': { ...product1, count: 10},
-        '2': { ...product2, count: 2}
-    });
+  const { onProductCountChange, shoppingCart } = useShoppingCart();
 
+  return (
+    <div>
+      <h1>Shopping Store</h1>
+      <hr />
 
+      {/* Inicio Control Props */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+      }}>
+        {
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              className="bg-dark text-white"
+              onChange={onProductCountChange}
+              // si product.id es nulo entonces retorno 0 de lo contrario retorno el valor
+              value={shoppingCart[product.id]?.count || 0}
+            >
+              <ProductImage
+                className="custom-image"
+                style={{
+                  boxShadow: '10px 10px 10px rgba(0,0,0, 0.2)'
+                }}
+              />
+              <ProductTitle className="text-bold" />
+              <ProductButtons className="custom-buttons" />
+            </ProductCard>
+          ))
+        }
+      </div>
 
+      <div className="shopping-cart">
+        {
+          Object.entries(shoppingCart).map(([key, product]) => (
 
-    return (
-        <div>
-            <h1>Shopping Store</h1>
-            <hr />
+            <ProductCard
+              key={key}
+              product={product}
+              className="bg-dark text-white"
+              style={{
+                width: '100px'
+              }}
+              onChange={onProductCountChange}
+              value={product.count}
 
-            {/* Inicio Control Props */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'wrap'
-            }}>
-              {
-                products.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    className="bg-dark text-white"
-                  >
-                      <ProductImage
-                          className="custom-image"
-                          style={{
-                            boxShadow: '10px 10px 10px rgba(0,0,0, 0.2)'
-                          }}
-                      />
-                      <ProductTitle className="text-bold" />
-                      <ProductButtons className="custom-buttons" />
-                  </ProductCard>
-                ))
-              }
-            </div>
-
-            <div className="shopping-cart">
-
-                <ProductCard
-                  product={product2}
-                  className="bg-dark text-white"
-                  style={{
-                    width: '100px'
-                  }}
-                >
-                    <ProductImage
-                      className="custom-image"
-                      style={{
-                        boxShadow: '10px 10px 10px rgba(0,0,0, 0.2)'
-                      }}
-                    />
-                    <ProductButtons className="custom-buttons" />
-                </ProductCard>
-
-                <ProductCard
-                  product={product1}
-                  className="bg-dark text-white"
-                  style={{
-                    width: '100px'
-                  }}
-                >
-                    <ProductImage
-                      className="custom-image"
-                      style={{
-                        boxShadow: '10px 10px 10px rgba(0,0,0, 0.2)'
-                      }}
-                    />
-                    <ProductButtons className="custom-buttons" />
-                </ProductCard>
-            </div>
-            {/* Fin Control Props */}
-        </div>
-    )
+            >
+              <ProductImage
+                className="custom-image"
+                style={{
+                  boxShadow: '10px 10px 10px rgba(0,0,0, 0.2)'
+                }}
+              />
+              <ProductButtons className="custom-buttons" />
+            </ProductCard>
+          ))
+        }
+      </div>
+      {/*<div>
+            <code>
+              {JSON.stringify(shoppingCart, null, 5)}
+            </code>
+          </div>*/}
+      {/* Fin Control Props */}
+    </div>
+  )
 }

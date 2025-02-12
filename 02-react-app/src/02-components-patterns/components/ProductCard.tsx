@@ -6,9 +6,9 @@ import styles from '../styles/styles.module.css';
 import { Provider } from '../store/ProductContext';
 
 
-export const ProductCard = ({ product, children, className, style }: ProductCardProps) => {
+export const ProductCard = ({ product, children, className, style, onChange, value }: ProductCardProps) => {
 
-    const { counter, increaseBy } = useProduct();
+    const { counter, increaseBy } = useProduct({ product, onChange, value });
 
     return (
         <Provider value={{
