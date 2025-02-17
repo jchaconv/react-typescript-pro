@@ -137,6 +137,13 @@ Control Props
 
 **************************************************************
 
+State Initializer
+
+    - Ejemplo basado en Formik
+    - pusimos dentro de ProductCard los demás componentes como un children en una funcion
+    - Luego en productCard llamamos a la funcion children() para que se renderice el contenido
+    - 
+
 
 
 
@@ -158,4 +165,5 @@ Control Props
 - Component Patterns
     - Compound Component Pattern: tener un componente padre y definir dentro los hijos.
     - Extensible Style: Para que el componente se adapte a estilos personalizados.
-    - Control Props
+    - Control Props: Mediante props en los componentes se puede manejar el state. Ejemplo del carrito de compras.
+    - State Initializer

@@ -1,50 +1,57 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useEffect, useRef, useState } from "react";
-import { OnChangeArgs, Product } from "../interfaces/interfaces";
+import { UseProductProps } from "../interfaces/interfaces";
 
-interface UseProductProps {
-    product: Product;
-    onChange?: (args: OnChangeArgs) => void;
-    value?: number;
-}
+export const useProduct = ({ onChange, product, value = 0, initialValues }: UseProductProps) => {
 
+    // Si viene un valor en initialValues lo toma sino toma el value
+    const [counter, setCounter] = useState<number>(initialValues?.count || value);
 
-export const useProduct = ({ onChange, product, value = 0 }: UseProductProps) => {
-
-    const [counter, setCounter] = useState(value);
-
-    // !!onChange  → Si existe onChange
-    const isControlled = useRef(!!onChange);
+    const isMounted = useRef(false);
 
     const increaseBy = (value: number) => {
 
-        if(isControlled.current) {
-            // onChange!  → Indico que siempre tendrá valor
-            // es como añadir && onChange en el if pero así
-            // es más eficiente 
-            return onChange!({count: value, product});
-        }
-
-        const newValue = Math.max(counter + value, 0);
+        let newValue = Math.max(counter + value, 0);
+        
+        if(initialValues?.maxCount) {            
+            newValue = Math.min(newValue, initialValues.maxCount);
+        }        
 
         setCounter(newValue);
 
-        // Si onChange trae valor ejecuto la función
         onChange && onChange({ count: newValue, product });
 
 
     }
 
+    const reset = () => {
+        setCounter(initialValues?.count || value);
+    }
+
     useEffect(() => {
-        
+
+        if (!isMounted.current) return;
+
         setCounter(value);
 
     }, [value]);
+    
+
+    useEffect(() => {
+
+        isMounted.current = true;
+
+    }, [])
+
 
 
     return {
         counter,
-        increaseBy
+        isMaxCountReached: !!initialValues?.count && initialValues.maxCount === counter,
+        maxCount: initialValues?.maxCount,
+
+        increaseBy,
+        reset
     }
 
 }

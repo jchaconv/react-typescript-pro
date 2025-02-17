@@ -1,4 +1,4 @@
-import { CSSProperties, JSX, ReactElement } from "react";
+import { CSSProperties, JSX } from "react";
 
 import { ProductButtonsProps } from "../components/ProductButtons";
 import { ProductImageProps } from "../components/ProductImage";
@@ -10,13 +10,30 @@ export interface Product {
     img?: string;
 }
 
+export interface InitialValues {
+    count?: number;
+    maxCount?: number;
+}
+
+export interface ProductCardHandlers {
+    count: number;
+    isMaxCountReached: boolean;
+    maxCount?: number;
+    product: Product;
+
+    increaseBy: (value: number) => void;
+    reset: () => void;
+}
+
 export interface ProductCardProps {
-    children?: ReactElement | ReactElement[];
+    //children?: ReactElement | ReactElement[];
+    children: (args: ProductCardHandlers) => JSX.Element;
     product: Product;
     className?: string;
     style?: CSSProperties;
     onChange?: (args: OnChangeArgs) => void;
     value?: number;
+    initialValues?: InitialValues;
 }
 
 export interface OnChangeArgs {
@@ -28,7 +45,8 @@ export interface OnChangeArgs {
 export interface ProductContextProps {
     counter: number;
     increaseBy: (value: number) => void;
-    product: Product
+    product: Product;
+    maxCount?: number;
 }
 
 
@@ -43,4 +61,11 @@ export interface ProductCardHOCProps {
 
 export interface ProductInCart extends Product {
     count: number;
+}
+
+export interface UseProductProps {
+    product: Product;
+    onChange?: (args: OnChangeArgs) => void;
+    value?: number;
+    initialValues?: InitialValues;
 }
