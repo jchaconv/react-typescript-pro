@@ -142,14 +142,15 @@ State Initializer
     - Ejemplo basado en Formik
     - pusimos dentro de ProductCard los demás componentes como un children en una funcion
     - Luego en productCard llamamos a la funcion children() para que se renderice el contenido
-    - 
-
-
-
 
 **************************************************************
 
+Despliegue a NPM
 
+    - tsdx
+    - Ver la rama feature/despliegue-npm
+
+**************************************************************
 
 
 
