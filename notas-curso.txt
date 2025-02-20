@@ -150,6 +150,48 @@ Despliegue a NPM
     - tsdx
     - Ver la rama feature/despliegue-npm
 
+    - Crear un "proyecto" con una estructura estandar
+        - dist
+        - examples
+        - lib
+        - sandbox
+        - test
+
+    - npx tsdx create jcv-product-card      → para problemas de auth se puede usar
+                                                - npm whoami
+                                                - npm login
+
+    - Escoger template de react por ahora
+
+    - Comandos:
+        - npm run start
+        - npm run build   → crea el directorio /dist                                            
+
+    - Añadir repo: Es necesario que se haga un repo para posibles colaboraciones.
+      Se agregan unas líneas al package.json   Yo no lo hago porque ya subí todo en una sola rama
+
+    
+    - Se hacer el npm login (yo no sigo adelante porque estoy con contractor)
+
+    - En .gitignore agregar package-lock.json
+
+    - git add .
+        git commit -m "version 0.0.1 lista"
+        git tag -a v0.0.1 -m "Version 0.0.1 lista"
+        git push
+        git push --tags
+        git remote -v     → ver el tag creado
+
+
+        npm run publish
+            → dejar vacia la nueva version
+
+        para importarlo hacer el: npm i xxxxxxxx → esto lo da la página de npm, ahí se puede
+        ver el comando establecido para importar el package publicado.       
+        
+
+           
+
 **************************************************************
 
 
@@ -159,7 +201,7 @@ Despliegue a NPM
     - useEffect
     - useReducer
     - useContext
-    -
+    - useCallback
 
 
 
