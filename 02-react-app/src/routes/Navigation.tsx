@@ -27,6 +27,12 @@ export const Navigation = () => {
                         <li>
                             <NavLink to="/formikabstractation" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Abstractation</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/registerformik" className={({ isActive }) => isActive ? 'nav-active' : ''}>Register Formik Page</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/dynamicform" className={({ isActive }) => isActive ? 'nav-active' : ''}>Dynamic Form</NavLink>
+                        </li>
                     </ul>
                 </nav>
                 <Routes>

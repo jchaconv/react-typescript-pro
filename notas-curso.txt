@@ -195,6 +195,18 @@ Desarrollo:
 
 **************************************************************
 
+Formularios dinámicos
+
+
+Temas:
+    - Construir inputs de forma dinámica
+    - Construir validaciones basados en propiedades
+    - Selects, Inputs
+    - Ideas para validaciones
+
+
+Desarrollo:
+    - La sección 11 empezó desde RegisterFormikPage.tsx
 
 
 
