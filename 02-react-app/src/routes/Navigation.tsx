@@ -24,6 +24,9 @@ export const Navigation = () => {
                         <li>
                             <NavLink to="/formikcomponents" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Components</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/formikabstractation" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Abstractation</NavLink>
+                        </li>
                     </ul>
                 </nav>
                 <Routes>

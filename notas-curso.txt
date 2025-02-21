@@ -190,6 +190,8 @@ Desarrollo:
 
     - También se ve el manejo de select y checkbox
 
+    - useField() para el manejo de props de formik
+
 
 **************************************************************
 
