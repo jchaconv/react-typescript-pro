@@ -153,6 +153,58 @@ Despliegue a NPM
 **************************************************************
 
 
+Formik
+
+
+    - Para mayor nivel de control en formularios
+    - validaciones, reset, mensajes de error, etc. se pueden hacer con formik.
+    - Si se hace un custom-hook veo que son demasiadas las validaciones para el form.
+
+Temas:
+
+    - useFormik
+    - Formik Component
+    - Formik Context
+    - useField
+    - Formik Custom Components
+    - Custom Components
+    - Metadata de los inputs
+    - Abstraction
+    - Yup
+        - Validaciones tipicas
+        - Validaciones personalizadas
+
+Sitio:  https://formik.org/
+
+
+Inicio de proyecto: Se usará 02-react-app en el directorio 03-forms
+
+Desarrollo:
+
+    - Se creó useForm() como customHook sin Formik. Son demasiadas validaciones que hacer
+      ahora veré como hacer más dinámico ese manejo.
+
+    - npm i formik
+
+    - Yup: validation schema builder  → npm i yup --save
+
+    - También se ve el manejo de select y checkbox
+
+
+**************************************************************
+
+
+
+
+**************************************************************
+
+
+
+
+
+**************************************************************
+
+
 
 - Hooks:
     - useState
@@ -168,3 +220,7 @@ Despliegue a NPM
     - Extensible Style: Para que el componente se adapte a estilos personalizados.
     - Control Props: Mediante props en los componentes se puede manejar el state. Ejemplo del carrito de compras.
     - State Initializer
+
+- Despliegue de componentes a NPM y utilización
+
+- 

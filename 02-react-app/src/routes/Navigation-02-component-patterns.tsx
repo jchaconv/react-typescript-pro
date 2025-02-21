@@ -13,16 +13,13 @@ export const Navigation = () => {
                     <img src={logo} alt="React logo" />
                     <ul>
                         <li>
-                            <NavLink to="/register" className={({ isActive }) => isActive ? 'nav-active' : ''}>Register Page</NavLink>
+                            <NavLink to="/" className={({ isActive }) => isActive ? 'nav-active' : ''}>Shopping</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/formikbasicpage" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Basic Page</NavLink>
+                            <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-active' : ''}>About</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/formikyuppage" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Yup Page</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/formikcomponents" className={({ isActive }) => isActive ? 'nav-active' : ''}>Formik Components</NavLink>
+                            <NavLink to="/users" className={({ isActive }) => isActive ? 'nav-active' : ''}>Users</NavLink>
                         </li>
                     </ul>
                 </nav>
