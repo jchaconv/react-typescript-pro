@@ -213,13 +213,80 @@ Desarrollo:
 **************************************************************
 
 
+StoryBook: Para crear documentación técnica de componentes
+
+    -   Integrar Storybook en una aplicación de React con Npx
+    -   Crear un componente desde cero
+    -   Crear historias
+    -   Configurar historias
+    -   Utilizar varios controles para las properties
+    -   Integración con TypeScript
+    -   Crear documentaciones de componentes
+    -   Desplegar documentación a diferentes sitios
+    -   Bonus: Chromatic para desplegar Storybook de forma colaborativa
+
+
+docs: https://storybook.js.org/docs/get-started/frameworks/react-webpack5?renderer=react
+
+
+Config del proyecto:
+
+    - npm create vite   →   por cuestiones de la cuenta no se puede usar este comando
+    - npx create-react-app my-storybook --template typescript
+    - npm install
+    - npm run start
+    - npm create storybook@latest
+        - al ejecutar este comando se abre automáticamente una url como esta: http://localhost:6006/?path=/story/example-button--primary&onboarding=false
+        - por default vienen ejemplos: Button, Header, Page
+    - npm run storybook en el dev de los scripts de package.json (opcional)
+    - la idea es tomar algún componente del directorio components y llevarlo a /src/stories
+    - prácticamente lo único que necesito es crear el archivo .stories.ts del componente que quiero mostrar e ir agregando
+      atributos según corresponda para mostrar la parte de docs.
+    - cuando se quiere modificar el tipo de forma en la que se quiere mostrar los argTypes, se puede pasar el cursor por el atributo control y te lleva a los docs de Storybook.
+    - para el depliegue tomar en cuenta el script de package.json : "build-storybook": "storybook build"
+        - ejecutar npm run build-storybook
+        - se creará automáticamente la carpeta storybook-static
+        - se puede desplegar en Netlify: https://www.netlify.com/ entrando a sites y dejando caer la carpeta que se creó
+        - también se puede llevar a GithubPages. Se renombra la carpeta storybook-static por docs.
+          (*) Un aporte de un alumno: Para no tener que estar cambiando manualmente el directory storybook-build a docs lo que se puede hacer es personalizar el package.json y,
+          en el script de build, dejar lo siguiente: "build": "build-storybook -o docs"
+            - crear nuevo repo en Github e inicializarlo en nuestro proyecto de StoryBook
+            - En Github Ir a Settings → Pages → Source: Deploy from a branch → escoger /docs → Save
+            - Entrar a la url que nos da luego de unos minutos
+
+Bonus:
+    - Chromatic: https://www.chromatic.com/
+    - Buscar nuestro proyecto de Github al loguearnos con nuestra cuenta.
+    - Ir al proyecto → npm add --dev chromatic
+    - usar el comando npx chromatic con el token (basicamente seguir las indicaciones de los comandos)
+    - se agregó automáticamente un valor de chromatic en el script de package.json. Si cambia el token editamos esta parte.
+    - Hasta aquí ya aparece el componente en Chromatic. Para detectar cambios en la UI, se procede a agregar un cambio(en este caso
+      un nuevo story de backgroundColor)
+    - levantar el proyecto de storybook y ver que está bien el cambio
+    - ejecutar el comando de Chromatic que está en el package.json
+    - Chromatic tiene features muy interesantes, reconoce builds, se integran cambios, se puede ver una miniatura del cambio, y también
+      se puede abrir el storybook que por lo que veo es una instancia deployada en Chromatic.
+
+
+**************************************************************
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 **************************************************************
 
-
+Temas aprendidos:
 
 - Hooks:
     - useState
@@ -227,8 +294,6 @@ Desarrollo:
     - useReducer
     - useContext
     -
-
-
 
 - Component Patterns
     - Compound Component Pattern: tener un componente padre y definir dentro los hijos.
@@ -238,4 +303,9 @@ Desarrollo:
 
 - Despliegue de componentes a NPM y utilización
 
-- 
+- Formik
+    - Validations con Yup
+    - Custom forms y dynamic forms
+
+
+- Storybook
