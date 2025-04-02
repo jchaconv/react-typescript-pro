@@ -274,7 +274,7 @@ Bonus:
 
 **************************************************************
 
-NPM empaquetamiento y publicación
+Sección 13 - NPM empaquetamiento y publicación
 
 Temas:
 
@@ -415,12 +415,35 @@ Config:
             - ncu -u  → actualiza el paquete
             - npm i  → para asegurarnos que tengamos las ultimas versiones
 
-        
-        
+
+**************************************************************
 
 
+Sección 14- Aplicación de React y Backend para PWA
 
 
+Temas:
+    - Tener una aplicación real de React
+    - Tener un backend y base de datos
+    - Tener una introducción a las PWAs
+
+Links:
+    - https://www.mongodb.com/products/platform/atlas-database
+    - https://github.com/Klerith/react-calendar-frontend
+    - https://github.com/Klerith/react-calendar-backend    
+
+
+mongodb:
+    - create cluster → free
+    - name: calendar-database
+    - create deployment
+    - create access user → tener el user y password a mano
+    - obtener cadena de conexión en → database → connect → with mongodb compass
+    - la última parte de la cadena es el nombre de la base de datos que se creará
+
+projects front and backend:
+    - descargar ambos y ejecutar npm install
+    - en el .env de backend modificar la cadena de conexión de mongo
 
 
 
