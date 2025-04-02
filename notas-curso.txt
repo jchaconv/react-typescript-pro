@@ -238,7 +238,10 @@ Config del proyecto:
     - npm create storybook@latest
         - al ejecutar este comando se abre automáticamente una url como esta: http://localhost:6006/?path=/story/example-button--primary&onboarding=false
         - por default vienen ejemplos: Button, Header, Page
-    - npm run storybook en el dev de los scripts de package.json (opcional)
+    - npm run storybook en el dev de los scripts de package.json (opcional
+
+Cambios en el proyecto:
+
     - la idea es tomar algún componente del directorio components y llevarlo a /src/stories
     - prácticamente lo único que necesito es crear el archivo .stories.ts del componente que quiero mostrar e ir agregando
       atributos según corresponda para mostrar la parte de docs.
@@ -255,6 +258,7 @@ Config del proyecto:
             - Entrar a la url que nos da luego de unos minutos
 
 Bonus:
+
     - Chromatic: https://www.chromatic.com/
     - Buscar nuestro proyecto de Github al loguearnos con nuestra cuenta.
     - Ir al proyecto → npm add --dev chromatic
@@ -270,12 +274,149 @@ Bonus:
 
 **************************************************************
 
+NPM empaquetamiento y publicación
+
+Temas:
+
+    - Preparación de package.json
+    - Preparación de tsconfig.json
+    - Limpieza de directorios
+    - Copiar recursos estáticos
+    - Subida y publicación a NPM
+    - Versionamiento semántico
+    - Versionamiento en GitHub
+    - Prueba en otro proyecto
+    - Build de producción
+    - Actualización de dependencias.
 
 
+Config:
 
+    - Se usa 03-my-storybook, asegurarse que el proyecto funciona bien con el npm run dev (que compile el Storybook)
+    - En package.json
+        - "name": "jcv-custom-components"
+        - "version": "0.0.1"
+        - En el mismo nivel agregar:
+            - "keywords": [
+                "react", "dev", "julio", "chacon", "course"
+            ],
+            "license": "MIT",
+            "homepage": "https://julio-chacon.com",
+            "repository": {
+                "url": "https://TODO...",
+                "type": git
+            },
+            "files": [
+                "dist/"
+            ],
+            "release": {
+                "branches": [
+                    "main"
+                ]
+            },
+        - Mover las dependencias de react que están en dependencies a devDependencies y también ponerlas en peerDependencies
+            - "peerDependencies": {
+                "react": "18.2.0",
+                "react-dom": "18.2.0",
+            }
 
+    - En tsconfig.json
+        - Reemplazar el contenido por lo que está aquí: https://gist.github.com/Klerith/d7b24a955c714b708479ef911b0837ca
+    
+    - En package.json en la parte de los scripts en el build solo le deja tsc porque usa vite. Cómo sería en el caso de este proyecto??
+    - Ejecutar npm run build
+    - Ir resolviendo errores
+    - El resultado es la carpeta /dist
+    - Cuando creo un nuevo archivo y ejecuto npm run build los demás archivos en /dist se mantienen. Qué pasa cuando ya no necesito esos archivos?
+    - Ejecutar npm i -D rimraf (Usarlo con cuidado porque elimina automáticamente)
+    - agregar en scripts de package.json: "clean": "rimraf dist/"
+    - ejecutar npm run clean y se borra automáticamente /dist
+    - en los scripts se dejó el "build": "npm run clean && tsc" Cómo sería en mi caso?? tsc es typescript compiler
+    - Para copiar los recursos estáticos como css e imagenes:
+        - Ejecutar npm i -D copyfiles            → -D es para instalar como dependencia de desarrollo
+        - en scripts "copyfiles": "copyfiles -u 1 src/**/*.css dist/"  → también se puede agregar jpg
+        - npm run copyfiles → Ahora si aparece el css
+        - Dejar así el "build": "npm run clean && tsc && npm run copyfiles"
+        - Lo que hace el comando es borrar dist, crear dist y los archivos, copiar los css
+    - npm publish
+        - cada vez que se hace un publish la version en package.json debe ser única
+        - ejecutar npm login
+        - modificar README.md:
 
+            # Componentes creados en el curso de React Pro
 
+            Instalar 
+
+            ```
+            npm i jcv-custom-components
+            ```
+
+            1. [Componente de botón](#boton)
+            2. [Componente de input](#input)
+            3. [Componente de select](#select)
+
+        - ejecutar npm publish y validar en la cuenta de npm
+    
+    - Información adicional del paquete:
+        - Crear src/index.ts para agregar las exportaciones     → se agrega para que reconozca typescript nuestro paquete en npm
+        - en package.json agregar:
+            - "main": "dist/index.js",
+              "typings": dist/index.d.ts"
+            - cambiar version 0.0.1-rc2
+        - agregar un archivo LICENSE (pegar el contenido de MIT)
+        - ejecutar npm run build
+        - ejecutar npm publish --dry-run  → para una vista previa de lo que se va a subir
+        - ejecutar npm publish
+    
+
+    - Importar nuestro paquete desde otro proyecto:
+        - npm create vite → name : 04-package-consumer
+        - npm i
+        - npm run dev
+        - npm i jcv-custom-components   → saldrá el error de peerDependencies por la versión de react, si es que en el proyecto del package lo dejé
+          con una versión 16 o diferente a la que manejo en el proyecto donde quiero importar.
+        - Dejar así en el otro proyecto:
+            - "peerDependencies": {
+                "react": "^16.8.0" || "^17.0.0" || "^18.2.0",
+                "react-dom": "^16.8.0" || "^17.0.0" || "^18.2.0"
+            }
+        - Hacer el build y publish otra vez.
+        - npm i jcv-custom-components
+        - Agregar (funciona bien):
+            <MyLabel label={'Hola Mundo'} allCaps color='text-primary'/>
+            <Button label={'Aceptar'} backgroundColor='#fafafa' onClick={() => console.log('click)} />
+        - ejecutar npm run build
+        - cd dist/
+        - http-server -o    (se puede instalar este paquete de npm)
+        - se ve que funciona correctamente
+
+    
+    - NP - A better npm publish
+        - Subir repo 03-my-storybook a un repo de github
+        - poner la url del repo en el package.json
+        - ejecutar npm i -D np
+        - en scripts "push:npm": "np"   → no se puede usar publish
+        - ejecutar npm run push:npm
+        - version: minor → sale errores entre ellos los engines, commits sin subir y tests
+        - Agregar en package.json:
+            - "engines": {
+                "node": ">12.0.0"
+            }
+        - en los scripts: "test": "echo 'all tests were good'"
+        - commitear cambios no push
+        - ejecutar npm run push:npm
+        - en github se crea automáticamente el release poner nombre, y publish release
+    
+    - npm-check-updates
+        - en package-consumer ejecutar: sudo npm install -g npm-check-updates
+        - ejecutar:
+            - ncu --version
+            - ncu  → se ve que reconoce cambios en el paquete de npm que hemos modificado
+            - ncu -u  → actualiza el paquete
+            - npm i  → para asegurarnos que tengamos las ultimas versiones
+
+        
+        
 
 
 
