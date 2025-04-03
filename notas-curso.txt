@@ -437,14 +437,47 @@ mongodb:
     - create cluster → free
     - name: calendar-database
     - create deployment
-    - create access user → tener el user y password a mano
+    - create access user → privileges: Read and write to any database → tener el user y password a mano
     - obtener cadena de conexión en → database → connect → with mongodb compass
     - la última parte de la cadena es el nombre de la base de datos que se creará
 
-projects front and backend:
-    - descargar ambos y ejecutar npm install
+project backend:
+    - descargar zip ejecutar npm install
     - en el .env de backend modificar la cadena de conexión de mongo
+    - me cambié a la versión 16 de node
+    - npm start → debería decir "Servidor corriendo en puerto 4000" y "DB Online"
 
+project fronted:
+    - descargar zip ejecutar npm install
+    - npm start
+    - la aplicación guarda en localStorage un token 
+    - registra eventos y se guardan en bd
+
+PWA's y Service Workers:
+    - PWA (Progressive Web Application) posteos offline
+    - El archivo Service worker es el que convierte una aplicación en PWA
+    - Caracteristicas de PWA:
+        - Acceso a la aplicación sin conexión
+        - Creación de db local
+        - Push notifications *
+        - uso de recursos nativos como cámara y gps
+        - sincronización en segundo plano
+        - manejo de cache
+        - etc
+    - El service worker se convierte en un proxy entre front y back
+        - intercepta peticiones
+        - está pendiente de notifications push
+        - corre en segundo plano
+        - maneja el caché
+        - no funciona en desarrollo "yarn start"
+
+
+
+
+
+
+git config --global user.name "Julio Chacon Vilela"
+git config --global user.email "jchacon.vilela@gmail.com"
 
 
 
