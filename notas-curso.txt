@@ -444,7 +444,7 @@ mongodb:
 project backend:
     - descargar zip ejecutar npm install
     - en el .env de backend modificar la cadena de conexión de mongo
-    - me cambié a la versión 16 de node
+    - me cambié a la versión 16 de node para evitar conflictos de versiones
     - npm start → debería decir "Servidor corriendo en puerto 4000" y "DB Online"
 
 project fronted:
@@ -472,8 +472,60 @@ PWA's y Service Workers:
         - no funciona en desarrollo "yarn start"
 
 
+**************************************************************
+
+Sección 15: React + PWA
 
 
+Temas:
+
+    -   Service Worker
+    -   Caché
+    -   Instalación
+    -   Fetch
+    -   Estrategias del caché
+        -   Network first
+        -   Cache Only
+        -   Network first with cache fallback
+
+
+
+Configs para comandos (Opcional, se usó lo que funciona):
+    - Si no hay yarn: npm install -g yarn
+    - Agregar C:\Users\julio.chacon\AppData\Local\Yarn\bin al PATH de variables de entorno
+    
+
+* Levantar backend
+
+Config proyecto front:
+    - Ejecutar npm run build en frontend
+    - Ejecutar npm install -g serve
+    - serve --version
+    - serve -s build
+    - Ahora la aplicación se levantó desde el build de producción
+
+
+Crear nuevo proyecto front para adaptar a pwa:
+
+    - Hubieron muchos problemas de versiones y conflictos para crear un nuevo proyecto
+      con npx y obtener esos archivos de service worker. Por lo tanto estoy viendo los videos
+      para entener de qué se trata y en su momento se replica en versiones más modernas de node.
+
+    - Consiste en tomar los archivos(dos) de service worker, agregar una linea en el index y con eso
+      el navegador ya reconoce que la aplicación tiene un SW activo. Se tiene que generar el build de prod y levantar.
+
+    - No es recomendable el "SKIP_WAITING" en el archivo service-worker.
+    - Se recomienda ver la docs de service-workers de developers.google.com
+    -  
+    
+
+
+
+
+
+
+
+**************************************************************
 
 
 git config --global user.name "Julio Chacon Vilela"
