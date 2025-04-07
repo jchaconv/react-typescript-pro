@@ -516,8 +516,121 @@ Crear nuevo proyecto front para adaptar a pwa:
 
     - No es recomendable el "SKIP_WAITING" en el archivo service-worker.
     - Se recomienda ver la docs de service-workers de developers.google.com
-    -  
-    
+
+**************************************************************
+
+Sección 16: Workbox
+
+Temas:
+
+    - Detectar Online y Offline desde React
+    - Workbox
+        - Wizard
+        - Estrategias
+        - Background Sync
+        - IndexedDB
+        - Offline CRUD
+    - Optimizaciones de nuestro service worker
+
+Proyecto front:
+    - He refactorizado AppRouter.js para que funcione con las versiones actuales de react-router-dom
+
+
+
+Config proyectos:
+
+    - npm install --legacy-peer-deps    (muchos conflictos de dependencias)
+    - Levantar backend con npm start   (no olvidar cambiar a node16)
+    - Levantar frontend con npm start (para verficar que funcione bien)
+    - npm run build
+    - serve -s build  (se debe ver el dino de chrome cuando me voy offline)
+
+
+Config workbox:
+
+    - npm install workbox-cli --global
+    - workbox --version
+    - workbox wizard → build → dejar todo seleccionado
+    - Dar enter a todo lo demás y "n" a si tenemos algún manifest
+    - ejecutar workbox generateSW workbox-config.js
+    - Configurar manualmente service-workers en public/index.html (archivo principal)
+      Solo se ejecutará en el build de producción
+    - hacer otra vez el build con yarn build
+    - ejecutar: workbox generateSW workbox-config.js para la generacíon del serviceWorker  → este comando solo sirve para configuraciones automáticas que están en ese archivo
+    - ejecutar: serve -s build
+    - En el navagador → application → Service workers
+      Ya debería figurar activo nuestro sw
+    - En cache storage se ve que está almacenando los recursos de la carpeta /build
+
+
+Workbox SW Manual:
+
+    - Se crea /src/sw-template.js
+    - Según este link agrega ese import: https://developer.chrome.com/docs/workbox/modules/workbox-sw
+    - agregar src en workbox-config para referenciar a nuestro template.
+    - comentar ignoreURLParametersMatching
+    - ejecutar: workbox injectManifest
+    - probar aplicacion y ver el nuevo SW, con archivo de config más simplificado
+    - se ve que el sw.js de /build es acorde a la nueva config.
+    - Adicionalmente:
+        - agregar a script de package.json "PWA": "workbox injectManifest"
+        - modificar "build": "react-scripts build && yarn PWA"
+        - de esta manera se va simplificando el proceso de ejecución de comandos
+
+Workbox Cache Strategies:
+    NetworkFirst: Primero network, luego caché
+    CacheFirst: Primero caché, luego a la red
+    CacheOnly
+
+    - Se ve en network que bootstrap.min.css viene de un url al igual que all.min.css
+    - Se procede a agregar las url's correspondientes(están en index.html) en sw-template.js
+    - No es necesario buildear toda la aplicación por eso solo se ejecuta: yarn PWA
+    - ejecutar: serve -s build
+    - se debe ver el nuevo SW esperando → skip waiting
+    - en cache storage se puede ver el workbox-runtinme que almacenó esta url al recargar la página:
+        /bootstrap/4.5.0/css/bootstrap.min.css
+    - si apago el server la aplicación sigue funcionando al cambiar la vista de semana, día, agenda, etc
+    - pero todavía si apago el SW la aplicación se queda en "Espere..."
+
+
+Verificación de token offline:
+
+    - Cuando está apagado el SW o cuando se salió de login y se quiere volver a ingresar se queda en "Espere..." porque
+      no ha sido validado el token en relación a esta url: http://localhost:4000/api/auth/renew
+    - Además está la url: http://localhost:4000/api/events → Se agregaron ambas en sw-template
+    - El renew no funcionó bien.
+
+
+Background Sync - Posteos sin conexión
+
+    - Docs: https://developer.chrome.com/docs/workbox/modules/workbox-background-sync
+    - Sirve para hacer posteos sin conexión, crea un queue con datos almacenados y luego de cierto tiempo se borra.
+    - yarn PWA
+    - serve -s build
+    - No se ve el queue en IndexedDB
+
+    - Se puede cambiar el nombre de la aplicación desde /public/manifest.json en name
+
+    - Se agregaron los cambios en sw-template.js y se probó. No se actualizan los cambios cuando hago el modo offline de SW.
+
+
+
+Mostrar mensaje de Online y Offline
+
+    - https://www.npmjs.com/package/react-detect-offline
+    - yarn add react-detect-offline
+    - Agregar código en Navbar.js
+    - Probar. Si funciona excelente.
+
+
+
+
+Workbox 
+
+yarn cache clean
+yarn install
+
+
 
 
 
@@ -530,6 +643,38 @@ Crear nuevo proyecto front para adaptar a pwa:
 
 git config --global user.name "Julio Chacon Vilela"
 git config --global user.email "jchacon.vilela@gmail.com"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
