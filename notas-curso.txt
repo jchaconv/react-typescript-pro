@@ -622,20 +622,56 @@ Mostrar mensaje de Online y Offline
     - Agregar código en Navbar.js
     - Probar. Si funciona excelente.
 
-
-
-
 Workbox 
 
 yarn cache clean
 yarn install
 
 
+**************************************************************
+
+Sección 17 - Mapbox:
+
+Temas:
+    -   Uso de Mapbox con TypeScript
+    -   Rutas y direcciones
+    -   Marcadores
+    -   Comunicación entre contextos
+    -   Distancia entre dos puntos
+    -   Duración aproximada del viaje
+
+Config proyecto:
+    - npx create-react-app maps-app --template=typescript
+    - npm start
+    - borrar archivos innecesarios
+    - Agregar bootstrap via cdn (Recuerda agregar el link y script)
+    - Crear contexto de lugares. Ver archivos en carpeta /context/places
+    - Usar React Tools para ver Components en el navegador.
 
 
+Obtener la geolocalización del usuario
+    - Se agrega validación en el index.tsx por si no cuenta con Geolocation el navegador.
+    - Se crea el helper para obtener coordenadas y se usa en PlacesProvider.tsx
 
 
+Mostrar la geolocalización del usuario en pantalla
+    - Se agregaron componentes en la carpeta /components y se obtuvieron las coords del Context.
+    - Se agregaron estilos css.
 
+Mostrar mapa de Mapbox
+    - mapbox.com  → ya creé mi cuenta (revisar terms de opción free)
+    - estoy usando el default token.
+    - Products → Mapbox GL JS
+    - Installation → module bundler → npm install --save mapbox-gl
+    - Agregar los estilos con el link y ponerlo en index.html:
+      <link href='https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.css' rel='stylesheet' />
+    - En un punto alto de la aplicación, en este caso index.tsx agregar el import y token.
+    - Agregar config en MapView.tsx con useLayoutEffect
+    - Hasta aquí ya se puede ver el mapa.
+
+Crear contexto para el Mapa:
+    - Se crearon los archivos correspondientes en /context/map
+    - Se agregó el Provider en MapsApp
 
 
 **************************************************************
@@ -643,37 +679,6 @@ yarn install
 
 git config --global user.name "Julio Chacon Vilela"
 git config --global user.email "jchacon.vilela@gmail.com"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
