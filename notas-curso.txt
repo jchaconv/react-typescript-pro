@@ -640,6 +640,10 @@ Temas:
     -   Distancia entre dos puntos
     -   Duración aproximada del viaje
 
+
+Generador de tarjetas: https://herramientas-online.com/generador-tarjeta-credito-cvv.php
+
+
 Config proyecto:
     - npx create-react-app maps-app --template=typescript
     - npm start
@@ -669,10 +673,61 @@ Mostrar mapa de Mapbox
     - Agregar config en MapView.tsx con useLayoutEffect
     - Hasta aquí ya se puede ver el mapa.
 
-Crear contexto para el Mapa:
+Crear contexto para el Mapa y establecer mapa para el contexto:
     - Se crearon los archivos correspondientes en /context/map
     - Se agregó el Provider en MapsApp
+    - todos los cambios adicionales están en MapView y en los archivos que tengan que ver con Map
 
+Marcadores- Popups y botón de ubicación:
+    - Todos son cambios pequeños en el MapProvider.tsx y estilos para el mapa en MapView.tsx
+    - Luego se creó BtnMyLocation.tsx para el botón que te regresa a la ubicación actual.
+
+
+SearchBar y Debounce manual
+    - SearchBar.tsx : Se creó componente con algunos estilos y debounce manual,
+      cada vez que escribo algo se muestra en consola luego de unos segundos
+
+Buscar lugares basados en el query de búsqueda
+    - Buscar en la docs "Geocoding playground" (hay problemas para renderizar el mapa en Firefox, intenté en Edge y funciona bien)
+    - Customizar opciones según se requiera, como idioma, país, limit, etc
+    - Nos genera un api que podemos probar en postman(GET):
+      https://api.mapbox.com/search/geocode/v6/forward?q=Jiron%20montero%20rosas&country=pe&proximity=-73.990593%2C40.740121&language=es&access_token=pk.eyJ1IjoiamNoYWNvbnYiLCJhIjoiY205N3R4MjQ1MGFyYzJxcHRqZ3F2eTgyOSJ9.e7cGVLGcHW-RHIVusJXjVg
+    - Hcer los cambios correspondientes en searchApi.ts PlacesProvider y SearchBar.tsx
+
+
+Colocar el tipo de dato y almacenarlo en en el state
+    - tomar el json de respuesta de postman y llevarlo a https://app.quicktype.io/
+    - se creó el archivo places.ts
+    - se añadieron los cambios al PlacesContext, placesReducer y PlacesProvider, ya se puede ver en Componentes del navegador la info correspondiente.
+
+
+Mostrar los lugares encontrados
+    - Usar el context en SearchResult
+
+Colocar marcadores en cada lugar encontrado
+Volar y activar el lugar seleccionado
+
+DirectionsApi - Direcciones entre dos puntos:
+    - mapbox docs → directions playground
+    - usar el response para crear las interfaces
+        https://api.mapbox.com/directions/v5/mapbox/driving/-77.033783%2C-12.075486%3B-77.034647%2C-12.076576?alternatives=false&geometries=geojson&overview=full&steps=false&access_token=pk.eyJ1IjoiamNoYWNvbnYiLCJhIjoiY205N3R4MjQ1MGFyYzJxcHRqZ3F2eTgyOSJ9.e7cGVLGcHW-RHIVusJXjVg
+    - crear directionsApi, modificar context
+
+
+Mostrar la polyline en el mapa
+    - todos los cambios fueron en map provider, hasta aquí funciona bien, se muestra la polyline y no hay errores.
+
+
+Si salen errores con el build de prod como le salieron en Netlify agregar estas lineas en todos los lugares donde se usó mapbox:
+
+        /* eslint import/no-webpack-loader-syntax: off */
+
+        
+        //@ts-ignore
+        import {} from '!mapbox-gl';
+
+
+        
 
 **************************************************************
 

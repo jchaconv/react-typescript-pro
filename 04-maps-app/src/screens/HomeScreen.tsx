@@ -1,8 +1,13 @@
+import { BtnMyLocation, SearchBar } from "../components"
 import { MapView } from "../components/MapView"
 
 
 export const HomeScreen = () => {
     return (
-        <MapView/>
+        <div>
+            <MapView/>
+            <BtnMyLocation/>
+            <SearchBar />
+        </div>
     )
 }
